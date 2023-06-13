@@ -864,7 +864,9 @@
 <span class="normal">213</span>
 <span class="normal">214</span>
 <span class="normal">215</span>
-<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WebsocketServer</span><span class="p">:</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WebsocketServer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;WebSocket server.&quot;&quot;&quot;</span>
 
     <span class="n">auto_clean_rooms</span><span class="p">:</span> <span class="nb">bool</span>
@@ -993,7 +995,9 @@
                     <span class="c1"># filter messages (e.g. awareness)</span>
                     <span class="n">skip</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">on_message</span><span class="p">:</span>
-                        <span class="n">skip</span> <span class="o">=</span> <span class="k">await</span> <span class="n">room</span><span class="o">.</span><span class="n">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                        <span class="n">skip</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">isawaitable</span><span class="p">(</span><span class="n">skip</span><span class="p">):</span>
+                            <span class="n">skip</span> <span class="o">=</span> <span class="k">await</span> <span class="n">skip</span>
                     <span class="k">if</span> <span class="n">skip</span><span class="p">:</span>
                         <span class="k">continue</span>
                     <span class="n">message_type</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1289,7 +1293,7 @@ However, a lower-level API can also be used:
         <tr>
           <td><code>room</code></td>
           <td>
-                <code><span title="ypy_websocket.yroom.YRoom">YRoom</span> | None</code>
+                <code><a class="autorefs autorefs-internal" title="ypy_websocket.yroom.YRoom" href="../Room/#ypy_websocket.yroom.YRoom">YRoom</a> | None</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1391,7 +1395,7 @@ However, a lower-level API can also be used:
     <tbody>
         <tr>
           <td>
-                <code><span title="ypy_websocket.yroom.YRoom">YRoom</span></code>
+                <code><a class="autorefs autorefs-internal" title="ypy_websocket.yroom.YRoom" href="../Room/#ypy_websocket.yroom.YRoom">YRoom</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1461,7 +1465,7 @@ However, a lower-level API can also be used:
         <tr>
           <td><code>room</code></td>
           <td>
-                <code><span title="ypy_websocket.yroom.YRoom">YRoom</span></code>
+                <code><a class="autorefs autorefs-internal" title="ypy_websocket.yroom.YRoom" href="../Room/#ypy_websocket.yroom.YRoom">YRoom</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1580,7 +1584,7 @@ However, a lower-level API can also be used:
         <tr>
           <td><code>from_room</code></td>
           <td>
-                <code><span title="ypy_websocket.yroom.YRoom">YRoom</span> | None</code>
+                <code><a class="autorefs autorefs-internal" title="ypy_websocket.yroom.YRoom" href="../Room/#ypy_websocket.yroom.YRoom">YRoom</a> | None</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1730,15 +1734,15 @@ However, a lower-level API can also be used:
 
       <details class="quote">
         <summary>Source code in <code>ypy_websocket/websocket_server.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
 <span class="normal">205</span>
 <span class="normal">206</span>
 <span class="normal">207</span>
-<span class="normal">208</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Start the WebSocket server.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;WebsocketServer already running&quot;</span><span class="p">)</span>
@@ -1769,13 +1773,13 @@ However, a lower-level API can also be used:
 
       <details class="quote">
         <summary>Source code in <code>ypy_websocket/websocket_server.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
 <span class="normal">213</span>
 <span class="normal">214</span>
 <span class="normal">215</span>
-<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop the WebSocket server.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;WebsocketServer not running&quot;</span><span class="p">)</span>

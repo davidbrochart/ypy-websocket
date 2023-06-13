@@ -74,6 +74,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ypy_websocket.yroom.YRoom" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -411,9 +416,80 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Room
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Room
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom" class="md-nav__link">
+    ypy_websocket.yroom.YRoom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.on_message" class="md-nav__link">
+    on_message
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.ready" class="md-nav__link">
+    ready
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.started" class="md-nav__link">
+    started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.start" class="md-nav__link">
+    start()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.stop" class="md-nav__link">
+    stop()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -458,6 +534,63 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom" class="md-nav__link">
+    ypy_websocket.yroom.YRoom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.on_message" class="md-nav__link">
+    on_message
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.ready" class="md-nav__link">
+    ready
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.started" class="md-nav__link">
+    started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.start" class="md-nav__link">
+    start()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ypy_websocket.yroom.YRoom.stop" class="md-nav__link">
+    stop()
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -476,7 +609,649 @@
 
   <h1>Room</h1>
 
-<p>TODO</p>
+<div class="doc doc-object doc-class">
+
+
+<a id="ypy_websocket.yroom.YRoom"></a>
+  <div class="doc doc-contents first">
+
+
+
+        <details class="quote">
+          <summary>Source code in <code>ypy_websocket/yroom.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">YRoom</span><span class="p">:</span>
+
+    <span class="n">clients</span><span class="p">:</span> <span class="nb">list</span>
+    <span class="n">ydoc</span><span class="p">:</span> <span class="n">Y</span><span class="o">.</span><span class="n">YDoc</span>
+    <span class="n">ystore</span><span class="p">:</span> <span class="n">BaseYStore</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">_on_message</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">bytes</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">_update_send_stream</span><span class="p">:</span> <span class="n">MemoryObjectSendStream</span>
+    <span class="n">_update_receive_stream</span><span class="p">:</span> <span class="n">MemoryObjectReceiveStream</span>
+    <span class="n">_ready</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">_task_group</span><span class="p">:</span> <span class="n">TaskGroup</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">_started</span><span class="p">:</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ystore</span><span class="p">:</span> <span class="n">BaseYStore</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the object.</span>
+
+<span class="sd">        The YRoom instance should preferably be used as an async context manager:</span>
+<span class="sd">        ```py</span>
+<span class="sd">        async with room:</span>
+<span class="sd">            ...</span>
+<span class="sd">        ```</span>
+<span class="sd">        However, a lower-level API can also be used:</span>
+<span class="sd">        ```py</span>
+<span class="sd">        task = asyncio.create_task(room.start())</span>
+<span class="sd">        await room.started.wait()</span>
+<span class="sd">        ...</span>
+<span class="sd">        room.stop()</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            ready: Whether the internal YDoc is ready to be synchronized right away.</span>
+<span class="sd">            ystore: An optional store in which to persist document updates.</span>
+<span class="sd">            log: An optional logger.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydoc</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">YDoc</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">awareness</span> <span class="o">=</span> <span class="n">Awareness</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ydoc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_send_stream</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_receive_stream</span> <span class="o">=</span> <span class="n">create_memory_object_stream</span><span class="p">(</span>
+            <span class="n">max_buffer_size</span><span class="o">=</span><span class="mi">65536</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ready</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ready</span> <span class="o">=</span> <span class="n">ready</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ystore</span> <span class="o">=</span> <span class="n">ystore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span> <span class="ow">or</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_message</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">started</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;An async event that is set when the WebSocket provider has started.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_started</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True is the internal YDoc is ready to be synchronized.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ready</span>
+
+    <span class="nd">@ready</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Arguments:</span>
+<span class="sd">            value: True if the internal YDoc is ready to be synchronized, False otherwise.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ready</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ydoc</span><span class="o">.</span><span class="n">observe_after_transaction</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">put_updates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_send_stream</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">bytes</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The callback called when a message was received, if any.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_message</span>
+
+    <span class="nd">@on_message</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">bytes</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Arguments:</span>
+<span class="sd">            value: the callback to call when a message is received. If the callback returns True, the message is skipped.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_message</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_broadcast_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_receive_stream</span><span class="p">:</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">update</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_receive_stream</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="o">.</span><span class="n">cancel_scope</span><span class="o">.</span><span class="n">cancel_called</span><span class="p">:</span>
+                    <span class="k">return</span>
+                <span class="c1"># broadcast internal ydoc&#39;s update to all clients, that includes changes from the</span>
+                <span class="c1"># clients and changes from the backend (out-of-band changes)</span>
+                <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Sending Y update to client with endpoint: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">client</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+                    <span class="n">message</span> <span class="o">=</span> <span class="n">create_update_message</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="o">.</span><span class="n">start_soon</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ystore</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Writing Y update to YStore&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="o">.</span><span class="n">start_soon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ystore</span><span class="o">.</span><span class="n">write</span><span class="p">,</span> <span class="n">update</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">YRoom</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;YRoom already running&quot;</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">with</span> <span class="n">AsyncExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">exit_stack</span><span class="p">:</span>
+            <span class="n">tg</span> <span class="o">=</span> <span class="n">create_task_group</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="o">=</span> <span class="k">await</span> <span class="n">exit_stack</span><span class="o">.</span><span class="n">enter_async_context</span><span class="p">(</span><span class="n">tg</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_exit_stack</span> <span class="o">=</span> <span class="n">exit_stack</span><span class="o">.</span><span class="n">pop_all</span><span class="p">()</span>
+            <span class="n">tg</span><span class="o">.</span><span class="n">start_soon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_broadcast_updates</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;YRoom not running&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="o">.</span><span class="n">cancel_scope</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exit_stack</span><span class="o">.</span><span class="fm">__aexit__</span><span class="p">(</span><span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Start the room.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;YRoom already running&quot;</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">with</span> <span class="n">create_task_group</span><span class="p">()</span> <span class="k">as</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="o">.</span><span class="n">start_soon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_broadcast_updates</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stop the room.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;YRoom not running&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="o">.</span><span class="n">cancel_scope</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="ypy_websocket.yroom.YRoom.on_message" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">on_message</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">bytes</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Callable">Callable</span>[[bytes], bool] | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The callback called when a message was received, if any.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="ypy_websocket.yroom.YRoom.ready" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>True is the internal YDoc is ready to be synchronized.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="ypy_websocket.yroom.YRoom.started" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">started</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>An async event that is set when the WebSocket provider has started.</p>
+  </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="ypy_websocket.yroom.YRoom.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">ready</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ystore</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize the object.</p>
+<p>The YRoom instance should preferably be used as an async context manager:
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">with</span> <span class="n">room</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+However, a lower-level API can also be used:
+<div class="highlight"><pre><span></span><code><span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">room</span><span class="o">.</span><span class="n">start</span><span class="p">())</span>
+<span class="k">await</span> <span class="n">room</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">room</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</code></pre></div></p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>ready</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether the internal YDoc is ready to be synchronized right away.</p>
+            </div>
+          </td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>ystore</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="ypy_websocket.ystore.BaseYStore" href="../Store/#ypy_websocket.ystore.BaseYStore">BaseYStore</a> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An optional store in which to persist document updates.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>log</code></td>
+          <td>
+                <code><span title="logging.Logger">Logger</span> | None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An optional logger.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>ypy_websocket/yroom.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ready</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ystore</span><span class="p">:</span> <span class="n">BaseYStore</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the object.</span>
+
+<span class="sd">    The YRoom instance should preferably be used as an async context manager:</span>
+<span class="sd">    ```py</span>
+<span class="sd">    async with room:</span>
+<span class="sd">        ...</span>
+<span class="sd">    ```</span>
+<span class="sd">    However, a lower-level API can also be used:</span>
+<span class="sd">    ```py</span>
+<span class="sd">    task = asyncio.create_task(room.start())</span>
+<span class="sd">    await room.started.wait()</span>
+<span class="sd">    ...</span>
+<span class="sd">    room.stop()</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        ready: Whether the internal YDoc is ready to be synchronized right away.</span>
+<span class="sd">        ystore: An optional store in which to persist document updates.</span>
+<span class="sd">        log: An optional logger.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ydoc</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">YDoc</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">awareness</span> <span class="o">=</span> <span class="n">Awareness</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ydoc</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_update_send_stream</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_receive_stream</span> <span class="o">=</span> <span class="n">create_memory_object_stream</span><span class="p">(</span>
+        <span class="n">max_buffer_size</span><span class="o">=</span><span class="mi">65536</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_ready</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ready</span> <span class="o">=</span> <span class="n">ready</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ystore</span> <span class="o">=</span> <span class="n">ystore</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span> <span class="ow">or</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">clients</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_on_message</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="ypy_websocket.yroom.YRoom.start" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">start</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Start the room.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ypy_websocket/yroom.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start the room.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;YRoom already running&quot;</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">create_task_group</span><span class="p">()</span> <span class="k">as</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="o">.</span><span class="n">start_soon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_broadcast_updates</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="ypy_websocket.yroom.YRoom.stop" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">stop</span><span class="p">()</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Stop the room.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ypy_websocket/yroom.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop the room.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;YRoom not running&quot;</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span><span class="o">.</span><span class="n">cancel_scope</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_task_group</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
 
 
 
