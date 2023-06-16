@@ -551,10 +551,7 @@
 
         <details class="quote">
           <summary>Source code in <code>ypy_websocket/asgi_server.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
@@ -586,21 +583,28 @@
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ASGIServer</span><span class="p">:</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ASGIServer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ASGI server.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">websocket_server</span><span class="p">:</span> <span class="n">WebsocketServer</span><span class="p">,</span>
-        <span class="n">on_connect</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="nb">bool</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">on_disconnect</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">on_connect</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span><span class="p">]</span>
+        <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">on_disconnect</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            websocket_server: An instance of WebsocketServer.</span>
-<span class="sd">            on_connect: An async callback called when connecting the WebSocket. If the callback returns True, the WebSocket is not accepted.</span>
-<span class="sd">            on_disconnect: an async callback called when disconnecting the WebSocket.</span>
+<span class="sd">            on_connect: An optional callback to call when connecting the WebSocket. If the callback returns True, the WebSocket is not accepted.</span>
+<span class="sd">            on_disconnect: An optional callback called when disconnecting the WebSocket.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_websocket_server</span> <span class="o">=</span> <span class="n">websocket_server</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_connect</span> <span class="o">=</span> <span class="n">on_connect</span>
@@ -615,7 +619,9 @@
         <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">receive</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">msg</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;websocket.connect&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_connect</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">close</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_connect</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span>
+                <span class="n">close</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_connect</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">isawaitable</span><span class="p">(</span><span class="n">close</span><span class="p">):</span>
+                    <span class="n">close</span> <span class="o">=</span> <span class="k">await</span> <span class="n">close</span>
                 <span class="k">if</span> <span class="n">close</span><span class="p">:</span>
                     <span class="k">return</span>
 
@@ -679,11 +685,11 @@
         <tr>
           <td><code>on_connect</code></td>
           <td>
-                <code><span title="typing.Callable">Callable</span>[[dict[str, <span title="typing.Any">Any</span>], dict[str, <span title="typing.Any">Any</span>]], <span title="typing.Awaitable">Awaitable</span>[bool]] | None</code>
+                <code><span title="typing.Callable">Callable</span>[[dict[str, <span title="typing.Any">Any</span>], dict[str, <span title="typing.Any">Any</span>]], <span title="typing.Awaitable">Awaitable</span>[bool] | bool] | None</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>An async callback called when connecting the WebSocket. If the callback returns True, the WebSocket is not accepted.</p>
+              <p>An optional callback to call when connecting the WebSocket. If the callback returns True, the WebSocket is not accepted.</p>
             </div>
           </td>
           <td>
@@ -693,11 +699,11 @@
         <tr>
           <td><code>on_disconnect</code></td>
           <td>
-                <code><span title="typing.Callable">Callable</span>[[dict[str, <span title="typing.Any">Any</span>]], <span title="typing.Awaitable">Awaitable</span>[None]] | None</code>
+                <code><span title="typing.Callable">Callable</span>[[dict[str, <span title="typing.Any">Any</span>]], <span title="typing.Awaitable">Awaitable</span>[None] | None] | None</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>an async callback called when disconnecting the WebSocket.</p>
+              <p>An optional callback called when disconnecting the WebSocket.</p>
             </div>
           </td>
           <td>
@@ -709,10 +715,7 @@
 
       <details class="quote">
         <summary>Source code in <code>ypy_websocket/asgi_server.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
@@ -724,18 +727,23 @@
 <span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
-<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">websocket_server</span><span class="p">:</span> <span class="n">WebsocketServer</span><span class="p">,</span>
-    <span class="n">on_connect</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="nb">bool</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">on_disconnect</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">on_connect</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span><span class="p">]</span>
+    <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">on_disconnect</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        websocket_server: An instance of WebsocketServer.</span>
-<span class="sd">        on_connect: An async callback called when connecting the WebSocket. If the callback returns True, the WebSocket is not accepted.</span>
-<span class="sd">        on_disconnect: an async callback called when disconnecting the WebSocket.</span>
+<span class="sd">        on_connect: An optional callback to call when connecting the WebSocket. If the callback returns True, the WebSocket is not accepted.</span>
+<span class="sd">        on_disconnect: An optional callback called when disconnecting the WebSocket.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_websocket_server</span> <span class="o">=</span> <span class="n">websocket_server</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_on_connect</span> <span class="o">=</span> <span class="n">on_connect</span>
